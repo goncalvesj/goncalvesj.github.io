@@ -1,22 +1,30 @@
-import React from 'react'
-import Helmet from 'react-helmet'
-import { graphql } from 'gatsby'
-import Layout from '../layout'
-import PostListing from '../components/PostListing'
-import SEO from '../components/SEO'
-import config from '../../data/SiteConfig'
+import React from 'react';
+import Helmet from 'react-helmet';
+import { graphql } from 'gatsby';
+import Layout from '../layout';
+import PostListing from '../components/PostListing';
+import SEO from '../components/SEO';
+import Bio from '../components/Bio';
+import config from '../../data/SiteConfig';
 
+const divStyle = {
+  'marginLeft': '30%',
+  'marginBottom': '5%'
+};
 const Index = ({ data }) => (
   <Layout>
     <main>
       <Helmet title={config.siteTitle} />
       <SEO />
+      <div style={divStyle}>
+        <Bio config={config}></Bio>
+      </div>
       <PostListing postEdges={data.allMarkdownRemark.edges} />
     </main>
   </Layout>
-)
+);
 
-export default Index
+export default Index;
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
@@ -44,4 +52,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

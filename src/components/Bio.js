@@ -1,6 +1,11 @@
-import React from 'react'
-import { Follow } from 'react-twitter-widgets'
-import styles from './Bio.module.scss'
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGithub,
+  faLinkedin,
+  faTwitter
+} from '@fortawesome/free-brands-svg-icons';
+import styles from './Bio.module.scss';
 
 const Bio = ({ config, expanded }) => (
   <>
@@ -9,16 +14,33 @@ const Bio = ({ config, expanded }) => (
       src={config.userAvatar}
       alt={config.userName}
     />
-    <p>
-      Written by <strong>{config.userName}</strong> who lives and works in San
-      Francisco building useful things.
-      {` `}
-      <Follow
-        username={config.userTwitter}
-        options={{ count: expanded ? true : 'none' }}
-      />
+    <p className={styles.text}>
+      <strong>{config.userName}</strong>
     </p>
+    <div>
+      <a
+        href={`https://twitter.com/${config.userTwitter}`}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <FontAwesomeIcon icon={faTwitter} />
+      </a>
+      <a
+        href={`https://github.com/${config.userGitHub}`}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <FontAwesomeIcon icon={faGithub} />
+      </a>
+      <a
+        href={`https://linkedin.com/in/joaopedroreis`}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <FontAwesomeIcon icon={faLinkedin} />
+      </a>
+    </div>
   </>
-)
+);
 
-export default Bio
+export default Bio;

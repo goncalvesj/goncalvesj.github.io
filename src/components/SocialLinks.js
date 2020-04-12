@@ -29,12 +29,12 @@ const SocialLinks = ({ postNode, postPath, mobile }) => {
 
   return (
     <div className={styles.socialLinks}>
-      <RedditShareButton url={url} title={post.title}>
+      {/* <RedditShareButton url={url} title={post.title}>
         <RedditIcon round size={iconSize} />
         <RedditShareCount url={url}>
           {count => renderShareCount(count)}
         </RedditShareCount>
-      </RedditShareButton>
+      </RedditShareButton> */}
       <TwitterShareButton url={url} title={post.title}>
         <TwitterIcon round size={iconSize} />
       </TwitterShareButton>
@@ -54,9 +54,9 @@ const SocialLinks = ({ postNode, postPath, mobile }) => {
           {count => renderShareCount(count)}
         </LinkedinShareCount>
       </LinkedinShareButton>
-      <TelegramShareButton url={url}>
+      {/* <TelegramShareButton url={url}>
         <TelegramIcon round size={iconSize} />
-      </TelegramShareButton>
+      </TelegramShareButton> */}
     </div>
   )
 }
