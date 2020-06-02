@@ -1,4 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[goncalvesj.github.io]]></title><description><![CDATA[A Gatsby Markdown Blog stater with Advanced design in mind.]]></description><link>https://goncalvesj.github.io/</link><image><url>https://goncalvesj.github.io//logos/logo-48.png</url><title>goncalvesj.github.io</title><link>https://goncalvesj.github.io/</link></image><generator>GatsbyJS Advanced Starter</generator><lastBuildDate>Wed, 15 Apr 2020 09:18:23 GMT</lastBuildDate><atom:link href="https://goncalvesj.github.io//rss.xml" rel="self" type="application/rss+xml"/><copyright><![CDATA[Copyright © 2020. All rights reserved.]]></copyright><item><title><![CDATA[Updating and Patching AKS]]></title><description><![CDATA[Recently I came across two situations where I had to make changes to some components in an AKS cluster with minimum impact. I didn't want to…]]></description><link>https://goncalvesj.github.io//update-patch-aks</link><guid isPermaLink="false">https://goncalvesj.github.io//update-patch-aks</guid><category><![CDATA[AKS]]></category><pubDate>Tue, 14 Apr 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Recently I came across two situations where I had to make changes to some components in an AKS cluster with minimum impact. I didn&apos;t want to be applying the full &lt;code class=&quot;language-text&quot;&gt;yaml&lt;/code&gt; files again since I was not too familiar with this particular set up.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[goncalvesj.github.io]]></title><description><![CDATA[A Gatsby Markdown Blog stater with Advanced design in mind.]]></description><link>https://goncalvesj.github.io/</link><image><url>https://goncalvesj.github.io//logos/logo-48.png</url><title>goncalvesj.github.io</title><link>https://goncalvesj.github.io/</link></image><generator>GatsbyJS Advanced Starter</generator><lastBuildDate>Tue, 02 Jun 2020 01:27:52 GMT</lastBuildDate><atom:link href="https://goncalvesj.github.io//rss.xml" rel="self" type="application/rss+xml"/><copyright><![CDATA[Copyright © 2020. All rights reserved.]]></copyright><item><title><![CDATA[Getting Started with Terraform]]></title><description><![CDATA[For most of projects that I worked on, when we had the chance of creating infrastructure as code the decision was always to go to ARM…]]></description><link>https://goncalvesj.github.io//getting-started-terraform</link><guid isPermaLink="false">https://goncalvesj.github.io//getting-started-terraform</guid><category><![CDATA[Terraform]]></category><category><![CDATA[Azure]]></category><pubDate>Sun, 31 May 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;For most of projects that I worked on, when we had the chance of creating infrastructure as code the decision was always to go to ARM templates. Mostly because the skillset of the team was favourable to that technology.&lt;/p&gt;
+&lt;p&gt;Out of my own curiosity I decided to try terraform, not just to learn a different tool for &lt;code class=&quot;language-text&quot;&gt;IaC&lt;/code&gt; but also because the &lt;code class=&quot;language-text&quot;&gt;terraform plan&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;terraform apply&lt;/code&gt; functionalities are really useful when you&apos;re creating infrastructure.&lt;/p&gt;
+&lt;p&gt;Also because of the support that Microsoft is giving this tool, being now documented in their own docs, and the interesting fact that Azure uses the &lt;code class=&quot;language-text&quot;&gt;Hashcorp Packer&lt;/code&gt; tool to build the Azure VMs base images. Makes me think that this relationship is going to last quite a bit and it&apos;s definitely worth investing some time on it.&lt;/p&gt;
+&lt;h2 id=&quot;getting-started&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#getting-started&quot; aria-label=&quot;getting started permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;Let&apos;s start by listing the prerequisites for working with Terraform on Azure:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://learn.hashicorp.com/terraform/getting-started/install.html&quot;&gt;Terraform CLI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&quot;&gt;Azure CLI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After installing you need to connect to your azure subscription.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Login to Azure&lt;/span&gt;
+az login
+&lt;span class=&quot;token comment&quot;&gt;# Set subcription if you have more than one&lt;/span&gt;
+az account &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; -s SUBSCRIPTIONID&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;creating-resources&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#creating-resources&quot; aria-label=&quot;creating resources permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Creating Resources&lt;/h2&gt;
+&lt;p&gt;Now that we are connected to the cloud we can start setting up our infrastructure.&lt;/p&gt;
+&lt;p&gt;The steps below will create an Azure Resource Group, an Azure App Service Plan and an App Service that uses a Docker image.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create a file &lt;code class=&quot;language-text&quot;&gt;resources.tf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set a provider&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Sets Azure as our provider&lt;/span&gt;
+provider &quot;azurerm&quot; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    version = &quot;=2.0.0&quot;
+    features &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a resource group&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;resource &quot;azurerm_resource_group&quot; &quot;example&quot; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    name     = &quot;RG&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;Containers&quot;
+    location = &quot;North Europe&quot;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create an App Service Plan on Linux&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;resource &quot;azurerm_app_service_plan&quot; &quot;example&quot; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    name                = &quot;RG&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;AppPlan&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;Linux&quot;
+    location            = azurerm_resource_group.example.location
+    resource_group_name = azurerm_resource_group.example.name
+    kind                = &quot;Linux&quot;
+    reserved            = true
+
+    sku &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        tier = &quot;Basic&quot;
+        size = &quot;B1&quot;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create an App Service that uses a Docker image&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;resource &quot;azurerm_app_service&quot; &quot;dockerapp&quot; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    name                = &quot;goncalvesj&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;ncngb2c&quot;
+    location            = azurerm_resource_group.example.location
+    resource_group_name = azurerm_resource_group.example.name
+    app_service_plan_id = azurerm_app_service_plan.example.id
+    https_only          = true
+
+    app_settings = &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    site_config &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        linux_fx_version = &quot;DOCKER&lt;span class=&quot;token punctuation&quot;&gt;|&lt;/span&gt;goncalvesj/netcore&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;angular&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;b2c&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;dev&quot;
+        always_on        = &quot;true&quot;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    identity &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        type = &quot;SystemAssigned&quot;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optional - Create a remote backend&lt;/p&gt;
+&lt;p&gt;Terraform has the functionality of having a remote backend to store the state of our infrasctruture. If you&apos;re working on a big team and there might be cases of multiple people working at the same time on the infrastrucure side you should use a remote backend to avoid conflicts and concurrent updates.&lt;/p&gt;
+&lt;p&gt;The below uses Azure Storage accounts as a remote backend and the storage needs to be created beforehand.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;terraform &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    backend &quot;azurerm&quot; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        resource_group_name  = &quot;RG&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;Storage&quot;
+        storage_account_name = &quot;goncalvesjtfbackends&quot;
+        container_name       = &quot;tfstate&quot;
+        key                  = &quot;azureappservicedocker.terraform.tfstate&quot;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Run &lt;code class=&quot;language-text&quot;&gt;terraform plan&lt;/code&gt; to create an output of what is going to be added, changed or deleted.&lt;/li&gt;
+&lt;li&gt;Then if you&apos;re happy with the changes, run &lt;code class=&quot;language-text&quot;&gt;terraform apply&lt;/code&gt; and watch all the resources getting created on Azure.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Hope this helped!Reach out to me on twitter if you have any questions!&lt;/strong&gt;&lt;/p&gt;</content:encoded><author>jp.reisgoncalves@gmail.com</author></item><item><title><![CDATA[Updating and Patching AKS]]></title><description><![CDATA[Recently I came across two situations where I had to make changes to some components in an AKS cluster with minimum impact. I didn't want to…]]></description><link>https://goncalvesj.github.io//update-patch-aks</link><guid isPermaLink="false">https://goncalvesj.github.io//update-patch-aks</guid><category><![CDATA[AKS]]></category><pubDate>Tue, 14 Apr 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Recently I came across two situations where I had to make changes to some components in an AKS cluster with minimum impact. I didn&apos;t want to be applying the full &lt;code class=&quot;language-text&quot;&gt;yaml&lt;/code&gt; files again since I was not too familiar with this particular set up.&lt;/p&gt;
 &lt;h2 id=&quot;updating-an-image&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#updating-an-image&quot; aria-label=&quot;updating an image permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Updating an image&lt;/h2&gt;
 &lt;p&gt;The first change I had to make was a replace of a docker image that one of the services was using. For that I updated the AKS deployment.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Updates the Image&lt;/span&gt;
