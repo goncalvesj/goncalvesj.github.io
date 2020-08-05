@@ -6,7 +6,7 @@ const config = {
   siteUrl: 'https://goncalvesj.github.io', // Domain of your website without pathPrefix.
   pathPrefix: '', // Prefixes all links. For cases when deployed to example.github.io/gatsby-advanced-starter/.
   siteDescription:
-    'A Gatsby Markdown Blog stater with Advanced design in mind.', // Website description used for RSS feeds/meta description tag.
+    'Goncalvesj - Tech Blog', // Website description used for RSS feeds/meta description tag.
   siteRss: '/rss.xml', // Path to the RSS file.
   siteFBAppID: '1825356251115265', // FB Application ID for using app insights
   googleAnalyticsID: 'UA-161211056-1', // GA tracking ID.
@@ -19,7 +19,7 @@ const config = {
   userLocation: 'Dublin, Ireland', // User location to display in the author segment.
   userAvatar: 'https://avatars2.githubusercontent.com/u/13003889?s=460&u=45d19829b87efbb4a0bc61e1b814b645d239eddf&v=4', // User avatar to display in the author segment.
   userDescription:
-    "Yeah, I like animals better than people sometimes... Especially dogs. Dogs are the best. Every time you come home, they act like they haven't seen you in a year. And the good thing about dogs... is they got different dogs for different people.", // User description to display in the author segment.
+    "", // User description to display in the author segment.
   copyright: 'Copyright © 2020. All rights reserved.', // Copyright string for the footer of the website and RSS feed.
   themeColor: '#c62828', // Used for setting manifest and progress theme colors.
   backgroundColor: 'red' // Used for setting manifest background color.

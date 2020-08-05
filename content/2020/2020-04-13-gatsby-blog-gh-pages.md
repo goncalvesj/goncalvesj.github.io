@@ -4,7 +4,7 @@ title: "Deploying a Gatsby blog in GitHub pages"
 cover: "https://unsplash.it/400/300/?random?BigTest"
 slug: deploy-gatsby-github-pages
 categories: 
-    - Tech
+    - React
     - Gatsby
 tags:
     - Gatsby

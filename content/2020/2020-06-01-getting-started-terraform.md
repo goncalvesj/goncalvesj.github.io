@@ -4,7 +4,7 @@ title: "Getting Started with Terraform"
 cover: "https://unsplash.it/400/300/?random?BigTest"
 slug: getting-started-terraform
 categories: 
-    - Tech
+    - Azure
     - Terraform
 tags:
     - Terraform

@@ -4,7 +4,7 @@ title: "Updating and Patching AKS"
 cover: "https://unsplash.it/400/300/?random?BigTest"
 slug: update-patch-aks
 categories: 
-    - Tech
+    - Azure
     - AKS
 tags:
     - AKS
