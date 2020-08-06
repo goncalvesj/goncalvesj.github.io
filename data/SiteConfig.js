@@ -9,7 +9,7 @@ const config = {
     'Goncalvesj - Tech Blog', // Website description used for RSS feeds/meta description tag.
   siteRss: '/rss.xml', // Path to the RSS file.
   siteFBAppID: '1825356251115265', // FB Application ID for using app insights
-  googleAnalyticsID: 'UA-161211056-1', // GA tracking ID.
+  googleAnalyticsID: 'UA-163853474-1', // GA tracking ID.
   dateFromFormat: 'YYYY-MM-DD', // Date format used in the frontmatter.
   dateFormat: 'DD/MM/YYYY', // Date format for display.
   userName: 'Joao Goncalves', // Username to display in the author segment.
