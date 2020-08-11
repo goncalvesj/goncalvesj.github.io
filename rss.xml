@@ -1,4 +1,136 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[goncalvesj.github.io]]></title><description><![CDATA[Goncalvesj - Tech Blog]]></description><link>https://goncalvesj.github.io/</link><image><url>https://goncalvesj.github.io//logos/logo-48.png</url><title>goncalvesj.github.io</title><link>https://goncalvesj.github.io/</link></image><generator>GatsbyJS Advanced Starter</generator><lastBuildDate>Thu, 06 Aug 2020 09:05:02 GMT</lastBuildDate><atom:link href="https://goncalvesj.github.io//rss.xml" rel="self" type="application/rss+xml"/><copyright><![CDATA[Copyright © 2020. All rights reserved.]]></copyright><item><title><![CDATA[Deleting an Azure B2C Tenant]]></title><description><![CDATA[In the past months I had to delete a couple of Azure B2C tenants. And while the experience in the Azure Portal is straight forward enough I…]]></description><link>https://goncalvesj.github.io//delete-ad-b-2-c-tenant</link><guid isPermaLink="false">https://goncalvesj.github.io//delete-ad-b-2-c-tenant</guid><category><![CDATA[ADB2C]]></category><category><![CDATA[Azure]]></category><pubDate>Tue, 04 Aug 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In the past months I had to delete a couple of Azure B2C tenants. And while the experience in the Azure Portal is straight forward enough I was always getting stuck in clearing the Azure AD Enterprise Applications.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[goncalvesj.github.io]]></title><description><![CDATA[Goncalvesj - Tech Blog]]></description><link>https://goncalvesj.github.io/</link><image><url>https://goncalvesj.github.io//logos/logo-48.png</url><title>goncalvesj.github.io</title><link>https://goncalvesj.github.io/</link></image><generator>GatsbyJS Advanced Starter</generator><lastBuildDate>Tue, 11 Aug 2020 14:52:48 GMT</lastBuildDate><atom:link href="https://goncalvesj.github.io//rss.xml" rel="self" type="application/rss+xml"/><copyright><![CDATA[Copyright © 2020. All rights reserved.]]></copyright><item><title><![CDATA[Setting up AKS Pod Azure Managed Identities]]></title><description><![CDATA[One of the things I was meaning to try out for some time was Azure Managed Identities in AKS clusters. I was always a fan of Managed…]]></description><link>https://goncalvesj.github.io//aks-pod-identity</link><guid isPermaLink="false">https://goncalvesj.github.io//aks-pod-identity</guid><category><![CDATA[AKS]]></category><category><![CDATA[Azure]]></category><pubDate>Mon, 10 Aug 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;One of the things I was meaning to try out for some time was Azure Managed Identities in AKS clusters.&lt;/p&gt;
+&lt;p&gt;I was always a fan of Managed Identities, I started using them in Azure App Services as soon as they were released in preview and became convinced straight away.&lt;/p&gt;
+&lt;p&gt;Azure Managed Identities to me is something should be used in projects as much as possible, mostly because:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Increases security of your applications&lt;/li&gt;
+&lt;li&gt;No more sensitive information in source control and configuration files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I already had an AKS cluster up an running for my own projects so the only things that was missing was setting up the pod identities to connect to Azure AD and get tokens.&lt;/p&gt;
+&lt;h2 id=&quot;create-an-aks-cluster&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#create-an-aks-cluster&quot; aria-label=&quot;create an aks cluster permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Create an AKS cluster&lt;/h2&gt;
+&lt;p&gt;The first step is to create an AKS cluster with managed identities enable.&lt;/p&gt;
+&lt;p&gt;The Azure portal allows for this today and it&apos;s a straight process.&lt;/p&gt;
+&lt;p&gt;An alternative is to run a terraform script that takes care of this. Script here:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/goncalvesj/iac-templates/blob/master/TerraformTemplates/Azure.AKS/resources.tf&quot;&gt;https://github.com/goncalvesj/iac-templates/blob/master/TerraformTemplates/Azure.AKS/resources.tf&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Once the cluster is created there is 1 new resource type of Managed Identity in the resource group.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 690px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a767a3d8c539b8787b4b4302a00a2781/3a737/aks-managed-identity.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 13.294797687861273%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABJ0AAASdAHeZh94AAAAbklEQVQI142Ouw6AIBAE+QRAOXygiYYcoaHh/79tlSvUGAuLySRbTFa5aUOjH1cxLSzYrocxBtZa8Zu2a63hvUfOGcyMGCOUBOcdFFiCd+Q79KQFiQgpJYk1K1ozOjecj9z16g/Ph6UU1FoRQsABo09LzkOTl5UAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;aks-managed-identity&quot;
+        title=&quot;aks-managed-identity&quot;
+        src=&quot;/static/a767a3d8c539b8787b4b4302a00a2781/1e043/aks-managed-identity.png&quot;
+        srcset=&quot;/static/a767a3d8c539b8787b4b4302a00a2781/991de/aks-managed-identity.png 173w,
+/static/a767a3d8c539b8787b4b4302a00a2781/e4d6b/aks-managed-identity.png 345w,
+/static/a767a3d8c539b8787b4b4302a00a2781/1e043/aks-managed-identity.png 690w,
+/static/a767a3d8c539b8787b4b4302a00a2781/3a737/aks-managed-identity.png 897w&quot;
+        sizes=&quot;(max-width: 690px) 100vw, 690px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&quot;adding-aad-pod-identity-to-the-cluster&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#adding-aad-pod-identity-to-the-cluster&quot; aria-label=&quot;adding aad pod identity to the cluster permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Adding AAD Pod Identity to the cluster&lt;/h2&gt;
+&lt;p&gt;For this I looked at the steps outlined here:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/Azure/aad-pod-identity&quot;&gt;https://github.com/Azure/aad-pod-identity&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I did the above with a small difference, I used the existing Managed Identity and didn&apos;t create a new one.&lt;/p&gt;
+&lt;p&gt;So my steps were the following (I did them in Azure Cloud Shell):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Deploy using Helm 3&lt;/span&gt;
+helm repo &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; aad-pod-identity https://raw.githubusercontent.com/Azure/aad-pod-identity/master/charts
+helm &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; aad-pod-identity aad-pod-identity/aad-pod-identity
+
+&lt;span class=&quot;token comment&quot;&gt;# Set up env vars&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;IDENTITY_NAME&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;goncalvesj-aks-agentpool&quot;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;SUBSCRIPTION_ID&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;xxxxx&quot;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;RESOURCE_GROUP&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;xxxxx&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;IDENTITY_CLIENT_ID&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;az identity show -g $RESOURCE_GROUP -n $IDENTITY_NAME --subscription $SUBSCRIPTION_ID --query clientId -otsv&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;IDENTITY_RESOURCE_ID&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;az identity show -g $RESOURCE_GROUP -n $IDENTITY_NAME --subscription $SUBSCRIPTION_ID --query &lt;span class=&quot;token function&quot;&gt;id&lt;/span&gt; -otsv&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Since the role assignent was created when the cluster was created&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# we only have to get the role assignment id&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# Look for the one where the principal name property is the same as the client id&lt;/span&gt;
+az role assignment list -g &lt;span class=&quot;token variable&quot;&gt;$RESOURCE_GROUP&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Get the id and save as env var, should be similar to this&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;IDENTITY_ASSIGNMENT_ID&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;/subscriptions/xxxxx/resourcegroups/xxxxx/providers/Microsoft.Authorization/roleAssignments/xxxxx&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;deploy-azureidentity--azureidentitybinding-as-defined-in-the-github-repo&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#deploy-azureidentity--azureidentitybinding-as-defined-in-the-github-repo&quot; aria-label=&quot;deploy azureidentity  azureidentitybinding as defined in the github repo permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Deploy AzureIdentity &amp;#x26; AzureIdentityBinding as defined in the github repo&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;EOF &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; kubectl apply -f -
+apiVersion: &lt;span class=&quot;token string&quot;&gt;&quot;aadpodidentity.k8s.io/v1&quot;&lt;/span&gt;
+kind: AzureIdentity
+metadata:
+  name: &lt;span class=&quot;token variable&quot;&gt;$IDENTITY_NAME&lt;/span&gt;
+spec:
+  type: &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+  resourceID: &lt;span class=&quot;token variable&quot;&gt;$IDENTITY_RESOURCE_ID&lt;/span&gt;
+  clientID: &lt;span class=&quot;token variable&quot;&gt;$IDENTITY_CLIENT_ID&lt;/span&gt;
+EOF
+
+&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;EOF &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; kubectl apply -f -
+apiVersion: &lt;span class=&quot;token string&quot;&gt;&quot;aadpodidentity.k8s.io/v1&quot;&lt;/span&gt;
+kind: AzureIdentityBinding
+metadata:
+  name: &lt;span class=&quot;token variable&quot;&gt;$IDENTITY_NAME&lt;/span&gt;-binding
+spec:
+  azureIdentity: &lt;span class=&quot;token variable&quot;&gt;$IDENTITY_NAME&lt;/span&gt;
+  selector: &lt;span class=&quot;token variable&quot;&gt;$IDENTITY_NAME&lt;/span&gt;
+EOF&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;testing&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#testing&quot; aria-label=&quot;testing permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Testing&lt;/h2&gt;
+&lt;p&gt;For testing I created a .NET Core Worker Service with the following code.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;csharp&quot;&gt;&lt;pre class=&quot;language-csharp&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;stoppingToken&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;IsCancellationRequested&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    _logger&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;LogInformation&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Worker running at: {time}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; DateTimeOffset&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Now&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt;&lt;/span&gt; secretClient &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token constructor-invocation class-name&quot;&gt;SecretClient&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+                            &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token constructor-invocation class-name&quot;&gt;Uri&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;https://xxxxx.vault.azure.net/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                            &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token constructor-invocation class-name&quot;&gt;DefaultAzureCredential&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;var&lt;/span&gt;&lt;/span&gt; secret &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; secretClient&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;GetSecretAsync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Secret1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token named-parameter punctuation&quot;&gt;cancellationToken&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; stoppingToken&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+        _logger&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;LogInformation&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token interpolation-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;$&quot;KV Secret: &lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token expression language-csharp&quot;&gt;secret&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Value&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Value&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Exception&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        Console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        _logger&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;LogError&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;e&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Error:&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; Task&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;Delay&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; stoppingToken&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;deploy&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#deploy&quot; aria-label=&quot;deploy permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Deploy&lt;/h2&gt;
+&lt;p&gt;Deployed it to Docker Hub and then to the AKS cluster as a single pod.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; EOF &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: workerservice2
+  labels:
+    aadpodidbinding: &lt;span class=&quot;token variable&quot;&gt;$IDENTITY_NAME&lt;/span&gt;
+spec:
+  containers:
+  - name: workerservice2
+    image: goncalvesj/workerservice2:20200811134040
+  nodeSelector:
+    kubernetes.io/os: linux
+EOF&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If all went well you should be able to see the secret being printed to the container logs with:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;kubectl logs workservice2 --follow&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;credits-to-everyone-who-built-and-works-on-the-httpsgithubcomazureaad-pod-identity-and-made-a-guide-so-easy-to-follow&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#credits-to-everyone-who-built-and-works-on-the-httpsgithubcomazureaad-pod-identity-and-made-a-guide-so-easy-to-follow&quot; aria-label=&quot;credits to everyone who built and works on the httpsgithubcomazureaad pod identity and made a guide so easy to follow permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Credits to everyone who built and works on the &lt;strong&gt;&lt;a href=&quot;https://github.com/Azure/aad-pod-identity&quot;&gt;https://github.com/Azure/aad-pod-identity&lt;/a&gt;&lt;/strong&gt; and made a guide so easy to follow&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Hope this helped! Reach out to me on twitter if you have any questions!&lt;/strong&gt;&lt;/p&gt;</content:encoded><author>jp.reisgoncalves@gmail.com</author></item><item><title><![CDATA[Deleting an Azure B2C Tenant]]></title><description><![CDATA[In the past months I had to delete a couple of Azure B2C tenants. And while the experience in the Azure Portal is straight forward enough I…]]></description><link>https://goncalvesj.github.io//delete-ad-b-2-c-tenant</link><guid isPermaLink="false">https://goncalvesj.github.io//delete-ad-b-2-c-tenant</guid><category><![CDATA[ADB2C]]></category><category><![CDATA[Azure]]></category><pubDate>Tue, 04 Aug 2020 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In the past months I had to delete a couple of Azure B2C tenants. And while the experience in the Azure Portal is straight forward enough I was always getting stuck in clearing the Azure AD Enterprise Applications.&lt;/p&gt;
 &lt;p&gt;In particular the Enterprise App Registration for Azure DevOps. Even as a Global Admin the delete button is always disabled. Since the Portal does not allow this operation the solution is to use PowerShell for this task.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
