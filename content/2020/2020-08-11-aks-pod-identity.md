@@ -20,13 +20,13 @@ Azure Managed Identities to me is something should be used in projects as much a
 - Increases security of your applications
 - No more sensitive information in source control and configuration files
 
-I already had an AKS cluster up an running for my own projects so the only things that was missing was setting up the pod identities to connect to Azure AD and get tokens.
+I already had an AKS cluster up an running for my own projects, so the only thing that was missing was allowing the pods to use Azure Managed Identities to connect to Azure AD and get tokens to be used connecting to other Azure services like Azure Key Vault.
 
 ## Create an AKS cluster
 
-The first step is to create an AKS cluster with managed identities enable.
+The first step is to create an AKS cluster with managed identities enabled.
 
-The Azure portal allows for this today and it's a straight process.
+The Azure portal allows for this today and it's a straight forward process.
 
 An alternative is to run a terraform script that takes care of this. Script here:
 
@@ -124,7 +124,7 @@ while (!stoppingToken.IsCancellationRequested)
 
 ## Deploy
 
-Deployed it to Docker Hub and then to the AKS cluster as a single pod.
+Deployed it to Docker Hub and then to the AKS cluster as a single pod. Notice the **aadpodidbinding** label field, that is what will connect the pod to the managed identity.
 
 ```bash
 cat << EOF | kubectl apply -f -
