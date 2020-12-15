@@ -1,5 +1,5 @@
 ---
-date: 2020-08-11
+date: 2020-12-14
 title: "Modernising Your Applications with Azure Tools: User Experience"
 cover: "https://unsplash.it/400/300/?random?BigTest"
 slug: modernising-ux-azure
