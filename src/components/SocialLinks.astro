@@ -1,0 +1,30 @@
+---
+import config from '../config';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  postPath: string;
+  excerpt: string;
+}
+
+const { post, postPath, excerpt } = Astro.props;
+const url = new URL(postPath, config.siteUrl).toString();
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(post.data.title);
+const encodedExcerpt = encodeURIComponent(excerpt);
+---
+
+<div class="social-links">
+  <a href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`} target="_blank" rel="noopener noreferrer">Twitter</a>
+  <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+  <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}&summary=${encodedExcerpt}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+</div>
+
+<style>
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+</style>

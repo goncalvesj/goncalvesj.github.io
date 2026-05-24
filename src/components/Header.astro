@@ -1,0 +1,137 @@
+---
+import { getCollection } from 'astro:content';
+import config from '../config';
+import { getCategories, slugify } from '../lib/posts';
+
+const categories = getCategories(await getCollection('posts'));
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (path: string) => (currentPath === path.replace(/\/$/, '') ? 'active-nav' : undefined);
+---
+
+<header>
+  <h1>
+    <a class={isActive('/')} href="/">{config.siteTitle}</a>
+  </h1>
+  <nav aria-label="Main navigation">
+    <ul class="main-nav">
+      <li><a class={isActive('/about')} href="/about">About</a></li>
+      {categories.map((category) => (
+        <li>
+          <a class={isActive(`/${slugify(category.name)}`)} href={`/${slugify(category.name)}`}>
+            {category.name}<strong> ({category.count})</strong>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style lang="scss">
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    background: hsla(0, 0%, 100%, 0.75);
+    -webkit-backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px);
+    z-index: 9;
+    margin-left: auto;
+    margin-right: auto;
+    height: 70px;
+
+    a {
+      text-decoration: none;
+      color: #3c4856;
+      font-size: 1.1rem;
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-top: 5px;
+    }
+
+    nav a {
+      color: #757575;
+      transition: color 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      font-size: 16px;
+
+      &:hover {
+        color: #4f647d;
+      }
+
+      strong {
+        margin: 1px;
+        color: #4f647d;
+        font-size: 0.8rem;
+      }
+    }
+
+    .active-nav {
+      color: #4f647d;
+      font-weight: 700;
+    }
+  }
+
+  .main-nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+    -ms-overflow-style: none !important;
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+
+    li {
+      font-size: 1.3rem;
+
+      & + li {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 1000px) {
+    header {
+      display: block;
+      height: 120px;
+    }
+
+    nav {
+      margin-top: -20px;
+
+      ul {
+        margin: 0;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    header strong {
+      display: none;
+    }
+
+    .main-nav li + li {
+      margin-left: 1rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    header nav a {
+      font-size: 0.7rem;
+      border: 1px solid #eee;
+      padding: 2px;
+      border-radius: 5px;
+    }
+  }
+</style>
