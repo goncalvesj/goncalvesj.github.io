@@ -32,7 +32,7 @@ const canonicalUrl = new URL(canonicalPath, config.siteUrl).toString();
     <meta name="twitter:card" content="summary" />
     <title>{pageTitle}</title>
     {config.googleAnalyticsID && (
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${config.googleAnalyticsID}`}></script>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${config.googleAnalyticsID}`}></script>
     )}
     {config.googleAnalyticsID && (
       <script is:inline define:vars={{ id: config.googleAnalyticsID }}>

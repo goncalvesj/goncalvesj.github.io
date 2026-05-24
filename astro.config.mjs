@@ -6,7 +6,13 @@ export default defineConfig({
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {
-      theme: 'material-theme-palenight'
+      theme: 'material-theme-palenight',
+      langAlias: {
+        PowerShell: 'powershell',
+        JSON: 'json',
+        YAML: 'yaml',
+        CSharp: 'csharp'
+      }
     }
   }
 });
