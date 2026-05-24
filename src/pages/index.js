@@ -17,7 +17,7 @@ const Index = ({ data }) => (
       <Helmet title={config.siteTitle} />
       <SEO />
       <div style={divStyle}>
-        <Bio config={config}></Bio>
+        <Bio config={config} />
       </div>
       <PostListing postEdges={data.allMarkdownRemark.edges} />
     </main>

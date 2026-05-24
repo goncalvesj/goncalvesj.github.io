@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import * as styles from './Bio.module.scss';
 
-const Bio = ({ config, expanded }) => (
+const Bio = ({ config }) => (
   <>
     <img
       className={styles.avatar}

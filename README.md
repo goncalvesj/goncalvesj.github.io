@@ -23,7 +23,7 @@ If you are interested in a foundation for building ultra-fast websites, you can 
 
 ## Features
 
-- Gatsby v2 support
+- Gatsby v5 support
 - Blazing fast loading times thanks to pre-rendered HTML and automatic chunk loading of JS files
 - Separate components for everything
 - High configurability:
