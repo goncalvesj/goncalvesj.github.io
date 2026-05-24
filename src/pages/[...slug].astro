@@ -1,0 +1,99 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Bio from '../components/Bio.astro';
+import PostListing from '../components/PostListing.astro';
+import PostTags from '../components/PostTags.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import type { Post } from '../lib/posts';
+import { formatDate, getCategories, getExcerpt, getPostSlug, getReadingTime, slugify, sortPosts } from '../lib/posts';
+
+type PostPageProps = {
+  pageType: 'post';
+  post: Post;
+  previousPost: Post;
+  nextPost: Post;
+};
+
+type CategoryPageProps = {
+  pageType: 'category';
+  category: string;
+  posts: Post[];
+};
+
+export async function getStaticPaths() {
+  const posts = sortPosts(await getCollection('posts'));
+  const postPaths = posts.map((post, index) => ({
+    params: { slug: getPostSlug(post) },
+    props: {
+      pageType: 'post',
+      post,
+      previousPost: posts[index - 1] ?? posts[posts.length - 1],
+      nextPost: posts[index + 1] ?? posts[0]
+    } satisfies PostPageProps
+  }));
+
+  const categoryPaths = getCategories(posts).map((category) => ({
+    params: { slug: slugify(category.name) },
+    props: {
+      pageType: 'category',
+      category: category.name,
+      posts: posts.filter((post) => post.data.categories.includes(category.name))
+    } satisfies CategoryPageProps
+  }));
+
+  return [...postPaths, ...categoryPaths];
+}
+
+const props = Astro.props as PostPageProps | CategoryPageProps;
+const renderedPost = props.pageType === 'post' ? await render(props.post) : undefined;
+const Content = renderedPost?.Content;
+---
+
+{props.pageType === 'category' ? (
+  <BaseLayout title={`"${props.category}"`} canonicalPath={`/${slugify(props.category)}`}>
+    <main>
+      <h1>Category: {props.category}</h1>
+      <PostListing posts={props.posts} />
+    </main>
+  </BaseLayout>
+) : (
+  <BaseLayout title={props.post.data.title} description={getExcerpt(props.post)} canonicalPath={`/${getPostSlug(props.post)}`}>
+    <main>
+      <div>
+        <h1>{props.post.data.title}</h1>
+        <p class="post-meta">{formatDate(props.post.data.date)} &mdash; {getReadingTime(props.post)} Min Read</p>
+        <div class="post-meta"><PostTags tags={props.post.data.tags} /></div>
+        {Content && <Content />}
+        <hr />
+        <Bio />
+        <div class="post-meta">
+          <SocialLinks post={props.post} postPath={`/${getPostSlug(props.post)}`} excerpt={getExcerpt(props.post)} />
+        </div>
+      </div>
+      <nav>
+        <ul class="pagination">
+          <li><a href={`/${getPostSlug(props.previousPost)}`} rel="prev">← {props.previousPost.data.title}</a></li>
+          <li><a href={`/${getPostSlug(props.nextPost)}`} rel="next">{props.nextPost.data.title}→</a></li>
+        </ul>
+      </nav>
+    </main>
+  </BaseLayout>
+)}
+
+<style>
+  .post-meta {
+    color: #757575;
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin-top: 4rem;
+  }
+</style>

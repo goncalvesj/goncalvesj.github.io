@@ -1,0 +1,66 @@
+---
+import type { Post } from '../lib/posts';
+import { formatDate, getExcerpt, getPostSlug, getReadingTime } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div class="article-list">
+  {posts.map((post) => (
+    <a href={`/${getPostSlug(post)}`}>
+      <article class="article-box">
+        <div class="right">
+          <h3>{post.data.title}</h3>
+          <div class="meta">
+            {formatDate(post.data.date)} &mdash; <span>{post.data.categories.join(' / ')}</span> &mdash; {getReadingTime(post)} Min Read
+          </div>
+          <p>{getExcerpt(post)}</p>
+        </div>
+      </article>
+    </a>
+  ))}
+</div>
+
+<style lang="scss">
+  .article-list {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    a {
+      text-decoration: none;
+    }
+
+    .article-box {
+      margin-bottom: 30px;
+      display: inline-block;
+      width: auto;
+      transition: all 0.25s ease;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .right {
+        padding: 15px;
+        color: #3c4856;
+        margin-top: -20px;
+
+        .meta {
+          margin-top: -15px;
+          margin-bottom: 20px;
+          font-size: 0.7rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .article-list {
+      grid-template-columns: 100%;
+    }
+  }
+</style>

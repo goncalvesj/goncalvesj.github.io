@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Bio from '../components/Bio.astro';
+import PostListing from '../components/PostListing.astro';
+import { sortPosts } from '../lib/posts';
+
+const posts = sortPosts(await getCollection('posts'));
+---
+
+<BaseLayout>
+  <main>
+    <div class="home-bio">
+      <Bio />
+    </div>
+    <PostListing posts={posts} />
+  </main>
+</BaseLayout>
+
+<style>
+  .home-bio {
+    margin-left: 30%;
+    margin-bottom: 5%;
+  }
+</style>

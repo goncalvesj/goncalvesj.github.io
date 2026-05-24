@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import config from '../config';
+---
+
+<BaseLayout title="About" canonicalPath="/about">
+  <main>
+    <h1>Hi and welcome to my Blog!</h1>
+    <p>
+      I am a Solutions Architect based in Dublin, Ireland, with over 10 years of professional experience as a software developer and architect. I specialise in Microsoft Azure and the wider Microsoft stack.
+    </p>
+    <p>
+      Day to day I help customers architect and build cloud native applications on Azure, and migrate or modernise existing workloads. I am Azure Solutions Architect and DevOps Engineer certified, and I spend a fair amount of time on application platform, IaC, identity and developer experience topics.
+    </p>
+    <p>
+      Outside of client work I like building small side projects to scratch an itch or try a new technology. A few of them end up here as posts. You can find the source for most of them on
+      <a class="external" href={`https://github.com/${config.userGitHub}`} target="_blank" rel="noopener noreferrer">GitHub</a>.
+    </p>
+    <p>
+      I am also a contributor to the local tech community through the
+      <a class="external" href="https://www.cloudlunchlearn.com/" target="_blank" rel="noopener noreferrer">Cloud Lunch and Learn</a>
+      initiative, and have spoken at community events on Azure reference architectures, including event-driven and event sourcing.
+    </p>
+    <p>
+      Away from a keyboard I have volunteered with
+      <a class="external" href="https://www.bancoalimentar.pt/" target="_blank" rel="noopener noreferrer">Banco Alimentar Contra a Fome</a>
+      since 2012, helping sort and prepare food donations.
+    </p>
+
+    <h2>Find me online</h2>
+    <ul class="links">
+      <li>
+        GitHub:
+        <a class="external" href={`https://github.com/${config.userGitHub}`} target="_blank" rel="noopener noreferrer">@{config.userGitHub}</a>
+      </li>
+      <li>
+        LinkedIn:
+        <a class="external" href={`https://www.linkedin.com/in/${config.userLinkedIn}`} target="_blank" rel="noopener noreferrer">/in/{config.userLinkedIn}</a>
+      </li>
+      <li>
+        Twitter / X:
+        <a class="external" href={`https://twitter.com/${config.userTwitter}`} target="_blank" rel="noopener noreferrer">@{config.userTwitter}</a>
+      </li>
+    </ul>
+
+    <h2>Certifications</h2>
+    <p>
+      The current list lives on my Credly profile:
+      <a class="external" href="https://www.credly.com/users/joao-goncalves.02406dd6" target="_blank" rel="noopener noreferrer">credly.com/users/joao-goncalves</a>.
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  .external {
+    color: cornflowerblue;
+  }
+
+  .links {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .links li {
+    margin: 0.25rem 0;
+  }
+</style>
