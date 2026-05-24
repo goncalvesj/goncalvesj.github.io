@@ -6,7 +6,6 @@ import {
   TelegramShareButton,
   RedditShareButton,
   FacebookShareCount,
-  LinkedinShareCount,
   RedditShareCount,
   FacebookIcon,
   TwitterIcon,
@@ -16,7 +15,7 @@ import {
 } from 'react-share'
 import urljoin from 'url-join'
 import config from '../../data/SiteConfig'
-import styles from './SocialLinks.module.scss'
+import * as styles from './SocialLinks.module.scss'
 
 const SocialLinks = ({ postNode, postPath, mobile }) => {
   const post = postNode.frontmatter
@@ -50,9 +49,6 @@ const SocialLinks = ({ postNode, postPath, mobile }) => {
         description={postNode.excerpt}
       >
         <LinkedinIcon round size={iconSize} />
-        <LinkedinShareCount url={url}>
-          {count => renderShareCount(count)}
-        </LinkedinShareCount>
       </LinkedinShareButton>
       {/* <TelegramShareButton url={url}>
         <TelegramIcon round size={iconSize} />

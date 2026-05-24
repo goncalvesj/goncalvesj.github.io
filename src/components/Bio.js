@@ -5,7 +5,7 @@ import {
   faLinkedin,
   faTwitter
 } from '@fortawesome/free-brands-svg-icons';
-import styles from './Bio.module.scss';
+import * as styles from './Bio.module.scss';
 
 const Bio = ({ config, expanded }) => (
   <>
