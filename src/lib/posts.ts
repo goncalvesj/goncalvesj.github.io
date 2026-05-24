@@ -29,7 +29,9 @@ export const getCategories = (posts: Post[]) => {
       categories.set(category, (categories.get(category) ?? 0) + 1);
     });
   });
-  return [...categories.entries()].map(([name, count]) => ({ name, count }));
+  return [...categories.entries()]
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 };
 
 export const getTags = (posts: Post[]) => {
