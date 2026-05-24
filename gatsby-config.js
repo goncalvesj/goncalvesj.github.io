@@ -149,7 +149,7 @@ module.exports = {
             {
               allMarkdownRemark(
                 limit: 1000,
-                sort: { order: DESC, fields: [fields___date] },
+                sort: { fields: { date: DESC } },
               ) {
                 edges {
                   node {
@@ -180,4 +180,3 @@ module.exports = {
     }
   ]
 };
-

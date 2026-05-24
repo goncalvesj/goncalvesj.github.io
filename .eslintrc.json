@@ -1,8 +1,15 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["react", "jsx-a11y", "import"],
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
   "rules": {
-    "no-unused-vars":"warn",
+    "no-unused-vars": "warn",
     "no-else-return": "off",
     "react/no-did-update-set-state": "off",
     "prefer-destructuring": "off",
@@ -22,15 +29,27 @@
     "jsx-a11y/accessible-emoji": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": "off",
-    "eslint.autoFixOnSave": true,
     "jsx-a11y/anchor-is-valid": [
       0,
       {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight", "to"],
-        "aspects": ["noHref", "invalidHref", "preferButton"]
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "hrefLeft",
+          "hrefRight",
+          "to"
+        ],
+        "aspects": [
+          "noHref",
+          "invalidHref",
+          "preferButton"
+        ]
       }
-    ]
+    ],
+    "react/function-component-definition": "off",
+    "arrow-body-style": "off",
+    "no-console": "off"
   },
   "settings": {
     "import/core-modules": []
@@ -38,5 +57,11 @@
   "env": {
     "browser": true
   },
-  "parser": "babel-eslint"
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
 }
